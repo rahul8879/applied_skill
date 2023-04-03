@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -23,4 +25,4 @@ urlpatterns = [
    path('send-sms', views.send_sms, name='send_sms'),
    path('submit_enquiry', views.submit_enquiry, name='submit_enquiry'),
    path('download_csv', views.download_csv, name='download_csv'),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
