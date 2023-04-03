@@ -20,5 +20,7 @@ from . import views
 urlpatterns = [
     # path('admin/', admin.site.urls),
    path('',views.home,name='name'),
-   path('send-sms', views.send_sms, name='send_sms')
+   path('send-sms', views.send_sms, name='send_sms'),
+   path('submit_enquiry', views.submit_enquiry, name='submit_enquiry'),
+   path('download_csv', views.download_csv, name='download_csv'),
 ]

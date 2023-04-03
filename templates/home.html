@@ -44,44 +44,47 @@
 </head>
 <body>
     <!-- start here -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/">
-            <img src="{% static 'img/as_logo.png' %}" alt="Logo" height="30">
-
-            <span class="navbar-brand mb-0 brand_logo"><strong>Applied Skill</strong> </span>
-          </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link text-dark fw-bold" href="/">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-dark fw-bold" href="#">About</a>
-              </li>
-              <!-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-dark fw-bold" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Courses
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <li><a class="dropdown-item" href="#">Course 1</a></li>
-                  <li><a class="dropdown-item" href="#">Course 2</a></li>
-                  <li><a class="dropdown-item" href="#">Course 3</a></li>
-                </ul>
-              </li> -->
-              <li class="nav-item">
-                <a class="nav-link text-dark fw-bold" href="#">Contact</a>
-              </li>
-            </ul>
-          </div>
-          <div class="justify-content-end d-flex">
-            <a href="https://wa.me/1234567890" target="_blank" class="text-white me-3"><i class="fab fa-whatsapp"></i> Contact Us</a>
-          </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <img src="{% static 'img/as_logo.png' %}" alt="Logo" height="30">
+          <span class="navbar-brand mb-0 brand_logo"><strong>Applied Skill</strong></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link text-dark fw-bold" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark fw-bold" href="#">About</a>
+            </li>
+            <!-- <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-dark fw-bold" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Courses
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Course 1</a></li>
+                <li><a class="dropdown-item" href="#">Course 2</a></li>
+                <li><a class="dropdown-item" href="#">Course 3</a></li>
+              </ul>
+            </li> -->
+            <li class="nav-item">
+              <a class="nav-link text-dark fw-bold" href="#">Contact</a>
+            </li>
+          </ul>
         </div>
-      </nav>
+        <div class="justify-content-end d-flex">
+          <a href="tel:+919152091676" class="nav-link text-dark fw-bold">
+            <i class="fas fa-phone"></i>
+            +91 9152091676
+          </a>
+        </div>
+      </div>
+    </nav>
+    
 
       <section id="section-urgencyBar" class="py-2 bg-warning">
         <div class="container d-flex align-items-center justify-content-between">
@@ -221,7 +224,7 @@
            
           </div>
           <div class="col-md-4 text-center">
-            <a href="syllabus.pdf" download class="btn btn-outline-secondary me-3 custom-btn">
+            <a href="/download_csv" download class="btn btn-outline-secondary me-3 custom-btn">
                  Download Syllabus
             </a>
           </div>
@@ -403,90 +406,93 @@
       <!-- pop up modal start here -->
 
             <!-- Modal HTML -->
-        <div id="enquiryModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Course Enquiry</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Please provide us with your details so we can assist you better:</p>
-                        <form>
-                            <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="Enter your name">
-                                </div>
+            <div id="enquiryModal" class="modal fade">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h4 class="modal-title">Course Enquiry</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      </div>
+                      <div class="modal-body">
+                          <p>Please provide us with your details so we can assist you better:</p>
+                          <form method="post" action="/submit_enquiry">
+                            {% csrf_token %}
+                              <div class="row">
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                  <label for="name">Name</label>
+                                  <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                  <label for="email">Email</label>
+                                  <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                                  </div>
+                              </div>
+                              </div>
+                              <div class="row">
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                  <label for="phone">Phone</label>
+                                  <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                  <label for="country">Country</label>
+                                  <select class="form-control" id="country">
+                                      <option value="">Select your country</option>
+                                      <option value="USA">USA</option>
+                                      <option value="Canada">Canada</option>
+                                      <option value="India">India</option>
+                                      <option value="China">China</option>
+                                      <option value="UK">UK</option>
+                                      <option value="Other">Other</option>
+                                  </select>
+                                  </div>
+                              </div>
+                              </div>
+                              <div class="row">
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                  <label for="experience">Years of Experience</label>
+                                  <input type="number" class="form-control" id="experience" placeholder="Enter your years of experience">
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                  <label for="education">Highest Education Level</label>
+                                  <select class="form-control" id="education">
+                                      <option value="">Select your highest education level</option>
+                                      <option value="High School">High School</option>
+                                      <option value="Bachelor's Degree">Bachelor's Degree</option>
+                                      <option value="Master's Degree">Master's Degree</option>
+                                      <option value="PhD">PhD</option>
+                                      <option value="Other">Other</option>
+                                  </select>
+                                  </div>
+                              </div>
+                              </div>
+                              <div class="row">
+                              <div class="col-md-12">
+                                  <div class="form-group">
+                                  <label for="comments">Comments</label>
+                                  <textarea class="form-control" id="comments" placeholder="Enter any additional comments or questions"></textarea>
+                                  </div>
+                              </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter your email">
-                                </div>
-                            </div>
-                            </div>
-                            <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                <label for="country">Country</label>
-                                <select class="form-control" id="country">
-                                    <option value="">Select your country</option>
-                                    <option value="USA">USA</option>
-                                    <option value="Canada">Canada</option>
-                                    <option value="India">India</option>
-                                    <option value="China">China</option>
-                                    <option value="UK">UK</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                <label for="experience">Years of Experience</label>
-                                <input type="number" class="form-control" id="experience" placeholder="Enter your years of experience">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                <label for="education">Highest Education Level</label>
-                                <select class="form-control" id="education">
-                                    <option value="">Select your highest education level</option>
-                                    <option value="High School">High School</option>
-                                    <option value="Bachelor's Degree">Bachelor's Degree</option>
-                                    <option value="Master's Degree">Master's Degree</option>
-                                    <option value="PhD">PhD</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                <label for="comments">Comments</label>
-                                <textarea class="form-control" id="comments" placeholder="Enter any additional comments or questions"></textarea>
-                                </div>
-                            </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary">Submit</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+                          </form>
+                          
+                      </div>
+                     
+                  </div>
+              </div>
+          </div>
 
       <!-- pop up modal ends here -->
 
@@ -572,7 +578,7 @@
           <div class="row">
             <div class="col-lg-4 mb-4 mb-lg-0">
               <h3 class="navbar-brand mb-0 brand_logo">Applied Skill</h3>
-              <p class="text-muted">We are a leading data science training institute, dedicated to providing high-quality training and education in the field of data science. Our team of experienced instructors and industry experts delivers practical, hands-on training to help students gain the skills and knowledge they need to succeed in this fast-growing field. We offer a range of courses, including beginner and advanced data science, machine learning, deep learning, and more. Our mission is to empower individuals and organizations to leverage the power of data to make better decisions and drive innovation.</p>
+              <p class="text-muted">We offer top-quality data science training led by experienced instructors and industry experts. Our courses cover beginner and advanced topics, including machine learning and deep learning. Our goal is to empower individuals and organizations to use data to drive innovation and make informed decisions.</p>
             </div>
             <div class="col-lg-4 mb-4 mb-lg-0">
               <h3>Other Courses</h3>
