@@ -48,7 +48,7 @@ def send_sms(request):
         # Send the SMS message using Twilio
         try:
             account_sid = 'ACcf41e466ed5bd377f0c14a3f217bdac6'
-            auth_token = '98dab3c4e1fc909bc4e265353a109e0e'
+            auth_token = '252922956af9ebe21394d6f5bd77032f'
             client = Client(account_sid, auth_token)
             message = client.messages \
                 .create(
