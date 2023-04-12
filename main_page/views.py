@@ -1,7 +1,12 @@
+from twilio.base.exceptions import TwilioRestException
+from .models import Enquiry
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from twilio.rest import Client
 from django.urls import reverse
+
+from django.utils import timezone
+from datetime import datetime, timedelta
 
 from django.http import FileResponse
 from django.conf import settings
@@ -10,9 +15,29 @@ import os
 
 
 def home(request):
-    return render(request,'home.html')
+    # Get the current time in the server's timezone
+    now = timezone.now()
 
-from twilio.base.exceptions import TwilioRestException
+    # Calculate the datetime of the next countdown end
+    countdown_end = now + timedelta(days=7) - timedelta(seconds=1)
+    # Calculate the time remaining until the countdown end
+    remaining_time = countdown_end - now
+    # Pass the remaining time to the template
+
+    # Calculate the remaining days, hours and minutes
+    remaining_days = remaining_time.days
+    remaining_hours, remainder = divmod(remaining_time.seconds, 3600)
+    remaining_minutes, remaining_seconds = divmod(remainder, 60)
+
+    # Pass the remaining time to the template
+    context = {
+        'remaining_days': remaining_days,
+        'remaining_hours': remaining_hours,
+        'remaining_minutes': remaining_minutes,
+    }
+
+    return render(request, 'home.html', context)
+
 
 def send_sms(request):
     if request.method == 'POST':
@@ -22,27 +47,24 @@ def send_sms(request):
 
         # Send the SMS message using Twilio
         try:
-            account_sid = 'AC30ea225fb3d74b63c9368b5e593e5572'
-            auth_token = '3c2fabcd0e07d6f70fb336934272922f'
+            account_sid = 'ACcf41e466ed5bd377f0c14a3f217bdac6'
+            auth_token = '98dab3c4e1fc909bc4e265353a109e0e'
             client = Client(account_sid, auth_token)
             message = client.messages \
                 .create(
                     body=f'New message from {name}, mobile number: {mobile}',
-                    from_='+15076232533',
+                    from_='+15075686859',
                     to='+919152091676'
                 )
         except TwilioRestException as e:
             # Handle exception
             return render(request, 'error.html', {'error': e})
-        
+
         # Redirect to home page and show popup
-        return render(request, 'home.html')
-    
+        return render(request, 'success.html')
+
     return render(request, 'home.html')
 
-
-from django.shortcuts import render
-from .models import Enquiry
 
 def submit_enquiry(request):
     if request.method == 'POST':
@@ -54,10 +76,11 @@ def submit_enquiry(request):
         education = request.POST.get('education')
         comments = request.POST.get('comments')
 
-        enquiry = Enquiry(name=name, email=email, phone=phone, country=country, experience=experience, education=education, comments=comments)
+        enquiry = Enquiry(name=name, email=email, phone=phone, country=country,
+                          experience=experience, education=education, comments=comments)
         enquiry.save()
 
-        #later, create a success page
+        # later, create a success page
 
         return render(request, 'home.html')
 
@@ -67,7 +90,6 @@ def submit_enquiry(request):
 def cancel_sms(request):
     # Redirect to home page
     return redirect(reverse('home'))
-
 
 
 def download_csv(request):

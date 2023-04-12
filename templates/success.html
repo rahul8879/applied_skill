@@ -1,0 +1,49 @@
+<!-- Include Bootstrap and jQuery libraries -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.3/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+<!-- Modal HTML -->
+<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="alertModalLabel">Team Applied Skill</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Thank you for your interest. Our team is currently engaged in other tasks and may not be immediately
+                available to respond to your inquiry. For urgent assistance, please feel free to contact us directly at
+                +91 9152091676.
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    onclick="redirectToHome()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Show the modal after 3 seconds
+        setTimeout(function () {
+            $('#alertModal').modal('show');
+        }, 0000);
+    });
+
+    function cancel() {
+        console.log('cancel button clicked');
+        window.location.href = "/";
+    }
+
+    function redirectToHome() {
+        console.log('OK button clicked');
+        window.location.href = "/";
+    }
+</script>
